@@ -16,6 +16,7 @@
 body{
   background:#f5f5f5;
   color:#222;
+  padding-bottom:75px;
 }
 
 header{
@@ -81,6 +82,32 @@ header h1{
   box-shadow:0 2px 7px #ddd;
 }
 
+.food-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.food-info{
+  flex:1;
+}
+
+.food-emoji{
+  font-size:45px;
+}
+
+.price{
+  font-weight:bold;
+  margin-top:6px;
+}
+
+.small-btn{
+  width:auto;
+  padding:10px 15px;
+  margin:0;
+}
+
 button{
   width:100%;
   padding:14px;
@@ -91,18 +118,74 @@ button{
   font-size:16px;
   font-weight:bold;
   margin-top:10px;
+  cursor:pointer;
 }
 
-input,select{
+input,select,textarea{
   width:100%;
   padding:13px;
   margin:8px 0;
   border:1px solid #ddd;
   border-radius:8px;
+  font-size:15px;
+}
+
+textarea{
+  resize:none;
+  height:80px;
 }
 
 .back{
   background:#555;
+}
+
+.cart-box{
+  background:#fff7f2;
+  border:1px solid #ffd2c0;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.cart-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px 0;
+  border-bottom:1px solid #eee;
+}
+
+.qty button{
+  width:auto;
+  padding:5px 10px;
+  margin:0 3px;
+  font-size:14px;
+}
+
+.total{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.order{
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:10px;
+  box-shadow:0 2px 6px #ddd;
+}
+
+.status{
+  color:#e85a00;
+  font-weight:bold;
+  margin-top:7px;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#777;
 }
 
 nav{
@@ -113,23 +196,23 @@ nav{
   background:white;
   display:flex;
   justify-content:space-around;
-  padding:12px 5px;
+  padding:10px 5px;
   box-shadow:0 -2px 8px #ddd;
+  z-index:100;
 }
 
 nav button{
   background:white;
   color:#222;
   margin:0;
-  padding:8px;
+  padding:7px;
   font-size:13px;
 }
 
-.order{
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
+hr{
+  border:0;
+  border-top:1px solid #eee;
+  margin:12px 0;
 }
 </style>
 </head>
@@ -143,11 +226,13 @@ nav button{
 
 <div class="container">
 
+<!-- LOCATION -->
 <div class="location">
 📍 <b>Your Location</b>
 <p>Munger, Bihar</p>
 </div>
 
+<!-- HOME -->
 <div id="home">
 
 <h2>Aapko kya chahiye?</h2>
@@ -172,39 +257,173 @@ Ride
 
 </div>
 
+<br>
+
+<div class="card">
+<h3>🔥 ApnaGo</h3>
+<p style="margin-top:8px;">
+Munger mein Food, Parcel aur Ride ek hi app se.
+</p>
+</div>
+
 </div>
 
 
 <!-- FOOD -->
-
 <div id="food" class="section">
 
 <h2>🍔 Food Delivery</h2>
 <br>
 
 <div class="card">
+
 <h3>🍕 Apna Pizza</h3>
 <p>⭐ 4.5 • 25 min</p>
-<button onclick="addOrder('Pizza - ₹199')">
-Order Pizza ₹199
-</button>
+
+<hr>
+
+<div class="food-item">
+
+<div class="food-info">
+<b>Margherita Pizza</b>
+<div class="price">₹199</div>
 </div>
+
+<div class="food-emoji">🍕</div>
+
+<button class="small-btn"
+onclick="addToCart('Margherita Pizza',199)">
++ Add
+</button>
+
+</div>
+
+<hr>
+
+<div class="food-item">
+
+<div class="food-info">
+<b>Cheese Pizza</b>
+<div class="price">₹249</div>
+</div>
+
+<div class="food-emoji">🍕</div>
+
+<button class="small-btn"
+onclick="addToCart('Cheese Pizza',249)">
++ Add
+</button>
+
+</div>
+
+</div>
+
 
 <div class="card">
+
 <h3>🍔 Munger Burger</h3>
 <p>⭐ 4.2 • 20 min</p>
-<button onclick="addOrder('Burger - ₹129')">
-Order Burger ₹129
-</button>
+
+<hr>
+
+<div class="food-item">
+
+<div class="food-info">
+<b>Classic Burger</b>
+<div class="price">₹129</div>
 </div>
 
-<button class="back" onclick="home()">← Back</button>
+<div class="food-emoji">🍔</div>
+
+<button class="small-btn"
+onclick="addToCart('Classic Burger',129)">
++ Add
+</button>
+
+</div>
+
+<hr>
+
+<div class="food-item">
+
+<div class="food-info">
+<b>Cheese Burger</b>
+<div class="price">₹159</div>
+</div>
+
+<div class="food-emoji">🍔</div>
+
+<button class="small-btn"
+onclick="addToCart('Cheese Burger',159)">
++ Add
+</button>
+
+</div>
+
+</div>
+
+
+<div class="cart-box">
+
+<h3>🛒 Cart</h3>
+
+<div id="cartList">
+<div class="empty">Cart khaali hai</div>
+</div>
+
+<div id="cartTotal" class="total">
+Total: ₹0
+</div>
+
+<button onclick="openCheckout()">
+🛒 Proceed to Checkout
+</button>
+
+</div>
+
+<button class="back" onclick="home()">
+← Back
+</button>
+
+</div>
+
+
+<!-- CHECKOUT -->
+<div id="checkout" class="section">
+
+<h2>🧾 Checkout</h2>
+<br>
+
+<div class="card">
+
+<h3>Delivery Address</h3>
+
+<input id="customerName"
+placeholder="Aapka naam">
+
+<input id="customerPhone"
+placeholder="Mobile number"
+type="tel">
+
+<textarea id="customerAddress"
+placeholder="Complete delivery address"></textarea>
+
+<div id="checkoutSummary"></div>
+
+<button onclick="placeFoodOrder()">
+✅ Place Food Order
+</button>
+
+</div>
+
+<button class="back" onclick="showSection('food')">
+← Back to Food
+</button>
 
 </div>
 
 
 <!-- PARCEL -->
-
 <div id="parcel" class="section">
 
 <h2>📦 Parcel Delivery</h2>
@@ -213,22 +432,30 @@ Order Burger ₹129
 <div class="card">
 
 <label>Pickup Location</label>
-<input id="pickup" placeholder="Pickup address">
+
+<input id="pickup"
+placeholder="Pickup address">
 
 <label>Drop Location</label>
-<input id="drop" placeholder="Drop address">
+
+<input id="drop"
+placeholder="Drop address">
 
 <label>Parcel Type</label>
 
 <select id="parcelType">
+
 <option>Document</option>
 <option>Clothes</option>
 <option>Grocery</option>
 <option>Electronics</option>
 <option>Other</option>
+
 </select>
 
-<p><b>Estimated Fare: ₹79</b></p>
+<p style="margin-top:10px;">
+<b>Estimated Fare: ₹79</b>
+</p>
 
 <button onclick="bookParcel()">
 📦 Book Parcel
@@ -236,13 +463,14 @@ Order Burger ₹129
 
 </div>
 
-<button class="back" onclick="home()">← Back</button>
+<button class="back" onclick="home()">
+← Back
+</button>
 
 </div>
 
 
 <!-- RIDE -->
-
 <div id="ride" class="section">
 
 <h2>🛵 Book a Ride</h2>
@@ -251,15 +479,21 @@ Order Burger ₹129
 <div class="card">
 
 <label>Pickup</label>
-<input id="ridePickup" placeholder="Pickup location">
+
+<input id="ridePickup"
+placeholder="Pickup location">
 
 <label>Destination</label>
-<input id="rideDrop" placeholder="Where to?">
+
+<input id="rideDrop"
+placeholder="Where to?">
 
 <select id="vehicle">
+
 <option>🏍️ Bike - ₹49</option>
 <option>🛺 Auto - ₹79</option>
 <option>🚗 Cab - ₹129</option>
+
 </select>
 
 <button onclick="bookRide()">
@@ -268,34 +502,44 @@ Order Burger ₹129
 
 </div>
 
-<button class="back" onclick="home()">← Back</button>
+<button class="back" onclick="home()">
+← Back
+</button>
 
 </div>
 
 
 <!-- ORDERS -->
-
 <div id="orders" class="section">
 
 <h2>📋 My Orders</h2>
 <br>
 
 <div id="orderList">
+<div class="empty">
+No orders yet.
+</div>
+</div>
 
-<p>No orders yet.</p>
+<button class="back" onclick="home()">
+← Home
+</button>
 
 </div>
 
-<button class="back" onclick="home()">← Home</button>
-
-</div>
-
 </div>
 
 
+<!-- NAVIGATION -->
 <nav>
 
-<button onclick="home()">🏠<br>Home</button>
+<button onclick="home()">
+🏠<br>Home
+</button>
+
+<button onclick="showSection('food')">
+🍔<br>Food
+</button>
 
 <button onclick="showSection('orders')">
 📋<br>Orders
@@ -306,14 +550,20 @@ Order Burger ₹129
 
 <script>
 
-let orders=[];
+let cart = [];
+let orders = [];
+
+
+/* -------------------------
+   PAGE NAVIGATION
+------------------------- */
 
 function hideAll(){
 
 document.getElementById("home").style.display="none";
 
 document.querySelectorAll(".section").forEach(
-s=>s.style.display="none"
+s => s.style.display="none"
 );
 
 }
@@ -334,89 +584,448 @@ hideAll();
 
 document.getElementById("home").style.display="block";
 
-}
-
-function addOrder(item){
-
-orders.push("🍔 Food Order: "+item);
-
-updateOrders();
-
-alert("✅ Food order placed!");
-
-showSection("orders");
+window.scrollTo(0,0);
 
 }
 
-function bookParcel(){
 
-let pickup=document.getElementById("pickup").value;
+/* -------------------------
+   FOOD CART
+------------------------- */
 
-let drop=document.getElementById("drop").value;
+function addToCart(name,price){
 
-if(!pickup || !drop){
+let existing = cart.find(
+item => item.name === name
+);
 
-alert("Pickup aur Drop location bhariye.");
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+name:name,
+price:price,
+qty:1
+});
+
+}
+
+updateCart();
+
+alert("✅ "+name+" cart mein add ho gaya.");
+
+}
+
+
+function changeQty(index,value){
+
+cart[index].qty += value;
+
+if(cart[index].qty <= 0){
+
+cart.splice(index,1);
+
+}
+
+updateCart();
+
+}
+
+
+function updateCart(){
+
+let list = document.getElementById("cartList");
+
+let totalBox = document.getElementById("cartTotal");
+
+if(cart.length === 0){
+
+list.innerHTML =
+'<div class="empty">Cart khaali hai</div>';
+
+totalBox.innerText = "Total: ₹0";
 
 return;
 
 }
 
-orders.push(
-"📦 Parcel: "+pickup+" → "+drop+" | ₹79"
+list.innerHTML="";
+
+let total=0;
+
+cart.forEach((item,index)=>{
+
+let itemTotal = item.price * item.qty;
+
+total += itemTotal;
+
+let div=document.createElement("div");
+
+div.className="cart-row";
+
+div.innerHTML = `
+
+<div>
+<b>${item.name}</b>
+<br>
+₹${item.price} × ${item.qty}
+</div>
+
+<div class="qty">
+
+<button onclick="changeQty(${index},-1)">
+−
+</button>
+
+${item.qty}
+
+<button onclick="changeQty(${index},1)">
++
+</button>
+
+</div>
+
+`;
+
+list.appendChild(div);
+
+});
+
+totalBox.innerText = "Total: ₹"+total;
+
+}
+
+
+/* -------------------------
+   CHECKOUT
+------------------------- */
+
+function openCheckout(){
+
+if(cart.length === 0){
+
+alert("⚠️ Pehle Food item cart mein add karein.");
+
+return;
+
+}
+
+let summary="";
+
+let total=0;
+
+cart.forEach(item=>{
+
+let itemTotal=item.price*item.qty;
+
+total+=itemTotal;
+
+summary += `
+<p>
+<b>${item.name}</b>
+× ${item.qty}
+= ₹${itemTotal}
+</p>
+`;
+
+});
+
+document.getElementById("checkoutSummary").innerHTML = `
+
+<div class="cart-box">
+
+<h3>🛒 Order Summary</h3>
+
+${summary}
+
+<hr>
+
+<h3>Total: ₹${total}</h3>
+
+</div>
+
+`;
+
+showSection("checkout");
+
+}
+
+
+/* -------------------------
+   FOOD ORDER
+------------------------- */
+
+function placeFoodOrder(){
+
+let name =
+document.getElementById("customerName").value.trim();
+
+let phone =
+document.getElementById("customerPhone").value.trim();
+
+let address =
+document.getElementById("customerAddress").value.trim();
+
+
+if(!name || !phone || !address){
+
+alert("⚠️ Naam, mobile aur address bhariye.");
+
+return;
+
+}
+
+
+if(phone.length < 10){
+
+alert("⚠️ Valid mobile number bhariye.");
+
+return;
+
+}
+
+
+let total=0;
+
+let items=[];
+
+cart.forEach(item=>{
+
+total += item.price * item.qty;
+
+items.push(
+item.name+" × "+item.qty
 );
+
+});
+
+
+orders.push({
+
+type:"🍔 Food",
+
+details:items.join(", "),
+
+amount:total,
+
+customer:name,
+
+phone:phone,
+
+address:address,
+
+status:"🟡 Order Received"
+
+});
+
+
+cart=[];
+
+updateCart();
+
+updateOrders();
+
+document.getElementById("customerName").value="";
+
+document.getElementById("customerPhone").value="";
+
+document.getElementById("customerAddress").value="";
+
+alert("🎉 Food order successfully placed!");
+
+showSection("orders");
+
+}
+
+
+/* -------------------------
+   PARCEL
+------------------------- */
+
+function bookParcel(){
+
+let pickup =
+document.getElementById("pickup").value.trim();
+
+let drop =
+document.getElementById("drop").value.trim();
+
+let type =
+document.getElementById("parcelType").value;
+
+
+if(!pickup || !drop){
+
+alert("⚠️ Pickup aur Drop location bhariye.");
+
+return;
+
+}
+
+
+orders.push({
+
+type:"📦 Parcel",
+
+details:
+pickup+" → "+drop+
+" | "+type,
+
+amount:79,
+
+status:"🟡 Booking Received"
+
+});
+
 
 updateOrders();
 
 alert("✅ Parcel booking successful!");
 
+document.getElementById("pickup").value="";
+
+document.getElementById("drop").value="";
+
 showSection("orders");
 
 }
 
+
+/* -------------------------
+   RIDE
+------------------------- */
+
 function bookRide(){
 
-let pickup=document.getElementById("ridePickup").value;
+let pickup =
+document.getElementById("ridePickup").value.trim();
 
-let drop=document.getElementById("rideDrop").value;
+let drop =
+document.getElementById("rideDrop").value.trim();
 
-let vehicle=document.getElementById("vehicle").value;
+let vehicle =
+document.getElementById("vehicle").value;
+
 
 if(!pickup || !drop){
 
-alert("Pickup aur Destination bhariye.");
+alert("⚠️ Pickup aur Destination bhariye.");
 
 return;
 
 }
 
-orders.push(
-"🛵 Ride: "+pickup+" → "+drop+" | "+vehicle
-);
+
+let fare=49;
+
+if(vehicle.includes("Auto")){
+
+fare=79;
+
+}
+
+if(vehicle.includes("Cab")){
+
+fare=129;
+
+}
+
+
+orders.push({
+
+type:"🛵 Ride",
+
+details:
+pickup+" → "+drop+
+" | "+vehicle,
+
+amount:fare,
+
+status:"🟡 Ride Booking Received"
+
+});
+
 
 updateOrders();
 
 alert("✅ Ride booking successful!");
 
+document.getElementById("ridePickup").value="";
+
+document.getElementById("rideDrop").value="";
+
 showSection("orders");
 
 }
 
+
+/* -------------------------
+   ORDERS
+------------------------- */
+
 function updateOrders(){
 
-let list=document.getElementById("orderList");
+let list =
+document.getElementById("orderList");
+
+
+if(orders.length===0){
+
+list.innerHTML =
+'<div class="empty">No orders yet.</div>';
+
+return;
+
+}
+
 
 list.innerHTML="";
 
-orders.forEach((order,index)=>{
 
-let div=document.createElement("div");
+orders.slice().reverse().forEach(
+(order,index)=>{
+
+let realIndex =
+orders.length-index;
+
+
+let div =
+document.createElement("div");
 
 div.className="order";
 
-div.innerHTML=
-"<b>Order #"+(index+1)+"</b><br>"+order+
-"<br><small>🟡 Booking Received</small>";
+div.innerHTML = `
+
+<b>Order #${realIndex}</b>
+
+<br><br>
+
+<b>${order.type}</b>
+
+<br>
+
+${order.details}
+
+<br><br>
+
+💰 Amount: <b>₹${order.amount}</b>
+
+${order.customer ?
+"<br>👤 "+order.customer :
+""}
+
+${order.address ?
+"<br>📍 "+order.address :
+""}
+
+<div class="status">
+${order.status}
+</div>
+
+`;
 
 list.appendChild(div);
 
@@ -424,7 +1033,16 @@ list.appendChild(div);
 
 }
 
+
+/* -------------------------
+   START APP
+------------------------- */
+
 home();
+
+updateCart();
+
+updateOrders();
 
 </script>
 
